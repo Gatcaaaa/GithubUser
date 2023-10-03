@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.project.githubuser.data.response.ItemsItem
+import com.project.githubuser.data.response.UserResponse
 import com.project.githubuser.databinding.ActivityMainBinding
 import com.project.githubuser.ui.detail.DetailActivity
 import com.project.githubuser.ui.utils.Result
@@ -17,11 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter by lazy {
-        UserAdapter{
-            Intent(this, DetailActivity::class.java).apply {
-                putExtra("username", it.login)
-                startActivity(this)
-            }
+        UserAdapter { user ->
+            startActivityDetail(user)
         }
     }
     private val viewModel by viewModels<mainViewModel>()
@@ -32,26 +29,21 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.adapter = adapter
+        getListRecyclerView()
+        /*
+        getThemeMode()
+         */
+        getSearchViewData()
+        getResultData()
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.getUser(query.toString())
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                viewModel.getUser(newText.toString())
-                return true
-            }
-        })
-
+        viewModel.getUser("dicoding")
+    }
+    private fun getResultData(){
         viewModel.resultUser.observe(this){
             when(it){
                 is  Result.Success<*> -> {
-                    adapter.setData(it.data as MutableList<ItemsItem>)
+                   val data = it.data as MutableList<UserResponse.ItemsItem>
+                    adapter.setData(data)
                 }
                 is  Result.Error -> {
                     Toast.makeText(this, it.exception.message.toString(), Toast.LENGTH_SHORT).show()
@@ -61,7 +53,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun getSearchViewData(){
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+               query?.let {
+                   viewModel.getUser(it)
+               }
+                return true
+            }
 
-        viewModel.getUser()
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+    }
+    private fun getListRecyclerView(){
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.adapter = adapter
+    }
+
+    /*
+    startDetailActivity
+     */
+    private fun startActivityDetail(user : UserResponse.ItemsItem) {
+        Intent(this, DetailActivity::class.java).apply {
+            putExtra("item", user)
+            startActivity(this)
+        }
     }
 }

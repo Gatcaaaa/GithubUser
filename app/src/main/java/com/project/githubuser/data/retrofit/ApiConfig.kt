@@ -1,6 +1,6 @@
 package com.project.githubuser.data.retrofit
 
-import com.project.githubuser.BuildConfig.API_URL
+import com.project.githubuser.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -14,6 +14,7 @@ object ApiConfig {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             addInterceptor(loggingInterceptor)
+
         }
         .readTimeout(25, TimeUnit.SECONDS)
         .writeTimeout(300, TimeUnit.SECONDS)
@@ -21,7 +22,7 @@ object ApiConfig {
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(API_URL)
+        .baseUrl(BuildConfig.API_URL)
         .client(okhttp)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

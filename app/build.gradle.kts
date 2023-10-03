@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.project.githubuser"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.project.githubuser"
@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "API_URL", "\"https://api.github.com/\"")
-        buildConfigField("String", "TOKEN", "\"token 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\"")
+        buildConfigField("String", "TOKEN", "\"token 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\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -79,4 +79,12 @@ dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:2.6.2")
 
     implementation("androidx.lifecycle:lifecycle-common-java8:2.6.2")
+
+
+    //room Lib
+    val room_version = "2.4.2"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-rxjava3:$room_version")
+
 }

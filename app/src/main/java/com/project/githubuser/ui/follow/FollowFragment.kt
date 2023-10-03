@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.project.githubuser.data.response.ItemsItem
+import com.project.githubuser.data.response.UserResponse
 import com.project.githubuser.databinding.FragmentFollowBinding
 import com.project.githubuser.ui.detail.DetailViewModel
 import com.project.githubuser.ui.home.UserAdapter
@@ -54,7 +54,7 @@ class FollowFragment : Fragment() {
     private fun manageResultFollows(state: Result){
         when(state){
             is Result.Success<*> -> {
-                adapter.setData(state.data as MutableList<ItemsItem>)
+                adapter.setData(state.data as MutableList<UserResponse.ItemsItem>)
             }
             is Result.Error -> {
                 Toast.makeText(requireContext(),state.exception.message.toString(), Toast.LENGTH_SHORT).show()

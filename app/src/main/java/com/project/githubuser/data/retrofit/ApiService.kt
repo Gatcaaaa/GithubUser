@@ -1,23 +1,20 @@
 package com.project.githubuser.data.retrofit
 
-import com.project.githubuser.data.response.DetailUserResponse
-import com.project.githubuser.data.response.ItemsItem
 import com.project.githubuser.BuildConfig
+import com.project.githubuser.data.response.DetailUserResponse
 import com.project.githubuser.data.response.UserResponse
-
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 interface ApiService {
-
     @JvmSuppressWildcards
     @GET("users")
     suspend fun getUser(
         @Header("Authorization")
         authorization: String = BuildConfig.TOKEN
-    ): MutableList<ItemsItem>
+    ): MutableList<UserResponse.ItemsItem>
 
     @JvmSuppressWildcards
     @GET("users/{username}")
@@ -33,7 +30,7 @@ interface ApiService {
         @Path("username") username : String,
         @Header("Authorization")
         authorization: String = BuildConfig.TOKEN
-    ): MutableList<ItemsItem>
+    ): MutableList<UserResponse.ItemsItem>
 
     @JvmSuppressWildcards
     @GET("users/{username}/following")
@@ -41,7 +38,7 @@ interface ApiService {
         @Path("username") username : String,
         @Header("Authorization")
         authorization: String = BuildConfig.TOKEN
-    ): MutableList<ItemsItem>
+    ): MutableList<UserResponse.ItemsItem>
 
     @JvmSuppressWildcards
     @GET("search/users")
