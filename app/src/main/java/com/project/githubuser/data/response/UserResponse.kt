@@ -15,15 +15,14 @@ data class UserResponse(
 	@Parcelize
 	@Entity(tableName = "user")
 	data class ItemsItem(
-
 		@ColumnInfo(name = "avatar_url")
-		val avatarUrl: String,
+		val avatar_url: String,
 
 		@PrimaryKey
 		val id: Int,
 
 		@ColumnInfo(name = "login")
-		val login: String,
+		val login: String
 
 		): Parcelable
 }

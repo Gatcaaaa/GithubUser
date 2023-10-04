@@ -3,14 +3,22 @@ package com.project.githubuser.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.project.githubuser.R
+import com.project.githubuser.data.datastore.SettingPreferences
 import com.project.githubuser.data.response.UserResponse
 import com.project.githubuser.databinding.ActivityMainBinding
 import com.project.githubuser.ui.detail.DetailActivity
+import com.project.githubuser.ui.favorite.FavoriteActivity
+import com.project.githubuser.ui.setting.SettingActivity
 import com.project.githubuser.ui.utils.Result
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +29,9 @@ class MainActivity : AppCompatActivity() {
             startActivityDetail(user)
         }
     }
-    private val viewModel by viewModels<mainViewModel>()
+    private val viewModel by viewModels<mainViewModel>{
+        mainViewModel.Factory(SettingPreferences(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +40,24 @@ class MainActivity : AppCompatActivity() {
 
 
         getListRecyclerView()
-        /*
         getThemeMode()
-         */
         getSearchViewData()
         getResultData()
 
         viewModel.getUser("dicoding")
     }
+
+    private fun getThemeMode() {
+        viewModel.getThemeMode().observe(this){
+            val modeMalam = if (it){
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
+            AppCompatDelegate.setDefaultNightMode(modeMalam)
+        }
+    }
+
     private fun getResultData(){
         viewModel.resultUser.observe(this){
             when(it){
@@ -75,11 +95,54 @@ class MainActivity : AppCompatActivity() {
     }
 
     /*
-    startDetailActivity
+    startActivity
+    intent ke
+    detail
      */
     private fun startActivityDetail(user : UserResponse.ItemsItem) {
         Intent(this, DetailActivity::class.java).apply {
             putExtra("item", user)
+            startActivity(this)
+        }
+    }
+
+    /*
+    Override OptionMenu
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val  inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu_item, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.favorite -> startFavoriteActivity()
+            R.id.setting -> startSettingActivity()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+    /*
+    startactivity
+    intent
+    favorit
+     */
+
+    private fun startFavoriteActivity() {
+        Intent(this, FavoriteActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
+    /*
+    startactivity
+    intent
+    setting
+     */
+
+    private fun startSettingActivity(){
+        Intent(this, SettingActivity::class.java).apply {
             startActivity(this)
         }
     }

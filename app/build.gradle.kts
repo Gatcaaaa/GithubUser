@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "API_URL", "\"https://api.github.com/\"")
-        buildConfigField("String", "TOKEN", "\"token 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\"")
+        buildConfigField("String", "TOKEN", "\"token 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\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -82,9 +82,13 @@ dependencies {
 
 
     //room Lib
-    val room_version = "2.4.2"
+    val room_version = "2.5.2"
     implementation("androidx.room:room-runtime:$room_version")
     kapt ("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-rxjava3:$room_version")
+
+
+    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 }

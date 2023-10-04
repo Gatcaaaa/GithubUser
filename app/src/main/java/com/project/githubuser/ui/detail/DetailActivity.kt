@@ -34,7 +34,6 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val item = intent.getParcelableExtra<UserResponse.ItemsItem>("item")
         val username = item?.login ?: ""
@@ -149,7 +148,8 @@ class DetailActivity : AppCompatActivity() {
             binding.btnFavorite.changeIconColor(R.color.white)
         }
 
-        viewModel.checkingUser(userId)    }
+        viewModel.checkingUser(userId)
+    }
 
     /*
     setupFavoriteButton

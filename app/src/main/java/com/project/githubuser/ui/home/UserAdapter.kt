@@ -19,13 +19,13 @@ class UserAdapter(
         notifyDataSetChanged()
     }
 
-    class UserViewHolder(private val b: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(b.root) {
+    class UserViewHolder(private val binding: ItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: UserResponse.ItemsItem) {
-            b.imgProfile.load(item.avatarUrl) {
+            binding.imgProfile.load(item.avatar_url) {
                 transformations(CircleCropTransformation())
             }
-            b.tvUsername.text = item.login
+            binding.tvUsername.text = item.login
         }
     }
 

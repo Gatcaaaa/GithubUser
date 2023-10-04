@@ -10,4 +10,7 @@
     <string name="tab_text_1">Followers</string>
     <string name="tab_text_2">Following</string>
     <string name="Home">Home</string>
+    <string name="favoriteIcon">Favorite</string>
+    <string name="SettingTheme">Setting\n</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>
