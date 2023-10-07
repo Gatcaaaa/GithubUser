@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">GithubUserALEGG</string>
     <string name="username">Username</string>
     <string name="followersTemplate">Followers:\n%s</string>
     <string name="followingTemplate">Following:\n%s</string>
