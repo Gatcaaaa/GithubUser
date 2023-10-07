@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.getUser("dicoding")
     }
 
+
+
     private fun getThemeMode() {
         viewModel.getThemeMode().observe(this){
             val modeMalam = if (it){

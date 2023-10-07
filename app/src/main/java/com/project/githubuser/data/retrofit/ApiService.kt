@@ -15,7 +15,6 @@ interface ApiService {
         @Header("Authorization")
         authorization: String = BuildConfig.TOKEN
     ): MutableList<UserResponse.ItemsItem>
-
     @JvmSuppressWildcards
     @GET("users/{username}")
     suspend fun getDetailUser(

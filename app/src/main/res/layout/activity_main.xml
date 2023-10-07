@@ -15,9 +15,12 @@
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:defaultQueryHint="Search"
-            app:iconifiedByDefault="false"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:queryHint="Cari apa dek..."
+            android:iconifiedByDefault="false"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/searchview_background" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -27,7 +30,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintTop_toBottomOf="parent"
+            tools:listitem="@layout/item_layout"/>
 
 
     </com.google.android.material.appbar.AppBarLayout>
